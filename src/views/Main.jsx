@@ -9,6 +9,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "constants/theme";
 import Dashboard from "views/Dashboard";
 import Other from "views/Other";
+import Sidebar from "components/Sidebar";
 
 const Wrapper = styled.div`
   position: relative;
@@ -34,6 +35,7 @@ const Main = () => {
               </Route>
               <Redirect to="/dashboard" />
             </Switch>
+            <Sidebar />
           </View>
         </Wrapper>
       </ThemeProvider>
