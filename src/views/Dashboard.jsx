@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "components/Button";
 
 const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.blue};
   position: relative;
   height: 100%;
 `;
