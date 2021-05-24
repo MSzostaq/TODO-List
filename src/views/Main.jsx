@@ -5,11 +5,12 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import { theme } from "constants/theme";
 import Dashboard from "views/Dashboard";
+import Other from "views/Other";
 
 const Wrapper = styled.div`
-  background-color: #000;
   position: relative;
   height: 100%;
 `;
@@ -21,16 +22,21 @@ const View = styled.div`
 const Main = () => {
   return (
     <Router>
-      <Wrapper>
-        <View>
-          <Switch>
-            <Route path="dashboard">
-              <Dashboard />
-            </Route>
-            <Redirect to="dashboard" />
-          </Switch>
-        </View>
-      </Wrapper>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <View>
+            <Switch>
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+              <Route path="/other">
+                <Other />
+              </Route>
+              <Redirect to="/dashboard" />
+            </Switch>
+          </View>
+        </Wrapper>
+      </ThemeProvider>
     </Router>
   );
 };
