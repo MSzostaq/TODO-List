@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.darkGrey};
+  background-color: ${({ theme }) => theme.colors.lightGrey};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.darkPurple};
   display: flex;
   align-items: center;
   justify-content: flex-start;
