@@ -15,7 +15,7 @@ export const theme = {
     white: "#f8f8f8",
   },
   fontSize: {
-    xxl: "48px",
+    xxl: "32px",
     xl: "24px",
     l: "18px",
     m: "14px",
