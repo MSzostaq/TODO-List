@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const Button = styled(motion.button)`
-  border-radius: 8px;
+  border-radius: 4px;
   color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;

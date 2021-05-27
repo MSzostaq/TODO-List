@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 import styled from "styled-components";
+import Button from "components/Button";
+import Modal from "components/Modal";
+import NewRequestPopup from "popups/NewRequestPopup";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
@@ -23,11 +27,29 @@ const StyledLink = styled(NavLink)`
   text-decoration: none;
 `;
 
+const AddNewButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.buttonGrey};
+  color: ${({ theme }) => theme.colors.icons};
+  width: 48px;
+  height: 32px;
+`;
+
 const Sidebar = () => {
+  const [modal, setModal] = useState(null);
+
+  function onCreate() {
+    setModal(null);
+  }
+
+  function onNewRequestButtonClick() {
+    setModal({ title: "New request", onCreate });
+  }
+
   return (
     <Wrapper>
       <StyledLink to="/dashboard">Dashboard</StyledLink>
       <StyledLink to="/other">Other</StyledLink>
+      <AddNewButton onClick={onNewRequestButtonClick}>Create</AddNewButton>
     </Wrapper>
   );
 };
