@@ -2,6 +2,7 @@ export const theme = {
   colors: {
     background: "#f5f5f5",
     backgroundPopup: "#f0f0f0",
+    buttonGrey: "#d5d5d5",
     black: "#222222",
     blue: "#0f5298",
     darkGrey: "#434343",
