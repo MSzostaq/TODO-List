@@ -14,12 +14,13 @@ const ViewWrapper = styled.div`
   justify-content: center;
 `;
 
-const CardWrapper = styled.div`
+const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
   border-radius: 12px;
   box-shadow: 0 0 2px 0 ${({ theme }) => theme.colors.darkPurple};
-  margin-top: 128px;
   overflow-y: auto;
+  position: absolute;
+  top: 12%;
   width: 80vw;
   height: 80vh;
 
@@ -36,12 +37,12 @@ const Title = styled.h1`
   margin: 12px 24px 24px;
 `;
 
-const StyledCard = styled.div`
+const CardItem = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
 const ItemWrapper = styled.div`
@@ -57,7 +58,7 @@ const ItemNumber = styled.h1`
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.colors.darkGrey};
-  font-size: ${({ theme }) => theme.fontSize.l};
+  font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
 const Item = styled.h1`
@@ -72,7 +73,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
 `;
 
 const DoneButton = styled(Button)`
@@ -91,9 +92,9 @@ const Dashboard = () => {
   return (
     <Wrapper>
       <ViewWrapper>
-        <CardWrapper>
+        <Card>
           <Title>Things to do:</Title>
-          <StyledCard>
+          <CardItem>
             <ItemWrapper>
               <ItemNumber>1</ItemNumber>
               <Item>Wash the dishes</Item>
@@ -102,8 +103,8 @@ const Dashboard = () => {
                 <DeleteButton whileTap={{ scale: 0.95 }}>Delete</DeleteButton>
               </ButtonWrapper>
             </ItemWrapper>
-          </StyledCard>
-          <StyledCard>
+          </CardItem>
+          <CardItem>
             <ItemWrapper>
               <ItemNumber>2</ItemNumber>
               <Item>Take a dog for a walk</Item>
@@ -112,8 +113,8 @@ const Dashboard = () => {
                 <DeleteButton whileTap={{ scale: 0.95 }}>Delete</DeleteButton>
               </ButtonWrapper>
             </ItemWrapper>
-          </StyledCard>
-          <StyledCard>
+          </CardItem>
+          <CardItem>
             <ItemWrapper>
               <ItemNumber>3</ItemNumber>
               <Item>Make a bed</Item>
@@ -122,8 +123,8 @@ const Dashboard = () => {
                 <DeleteButton whileTap={{ scale: 0.95 }}>Delete</DeleteButton>
               </ButtonWrapper>
             </ItemWrapper>
-          </StyledCard>
-        </CardWrapper>
+          </CardItem>
+        </Card>
       </ViewWrapper>
     </Wrapper>
   );
