@@ -38,7 +38,6 @@ const Title = styled.h1`
 `;
 
 const CardItem = styled.div`
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,6 +46,7 @@ const CardItem = styled.div`
 
 const ItemWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.darkPurple};
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   padding: 12px;
@@ -54,6 +54,7 @@ const ItemWrapper = styled.div`
 `;
 
 const ItemNumber = styled.h1`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +63,7 @@ const ItemNumber = styled.h1`
 `;
 
 const Item = styled.h1`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
