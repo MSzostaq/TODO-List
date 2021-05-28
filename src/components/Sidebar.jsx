@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
 import styled from "styled-components";
 import Button from "components/Button";
 import Modal from "components/Modal";
@@ -30,8 +29,8 @@ const StyledLink = styled(NavLink)`
 const AddNewButton = styled(Button)`
   background-color: ${({ theme }) => theme.colors.buttonGrey};
   color: ${({ theme }) => theme.colors.icons};
-  width: 48px;
-  height: 32px;
+  font-weight: bold;
+  height: 40px;
 `;
 
 const Sidebar = () => {
@@ -46,11 +45,20 @@ const Sidebar = () => {
   }
 
   return (
-    <Wrapper>
-      <StyledLink to="/dashboard">Dashboard</StyledLink>
-      <StyledLink to="/other">Other</StyledLink>
-      <AddNewButton onClick={onNewRequestButtonClick}>Create</AddNewButton>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <StyledLink to="/dashboard">Dashboard</StyledLink>
+        <StyledLink to="/other">Other</StyledLink>
+        <AddNewButton onClick={onNewRequestButtonClick}>
+          New request
+        </AddNewButton>
+      </Wrapper>
+      {modal && (
+        <Modal>
+          <NewRequestPopup popup={modal} onClose={() => setModal(null)} />
+        </Modal>
+      )}
+    </>
   );
 };
 
