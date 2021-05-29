@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "constants/theme";
-import Dashboard from "views/Dashboard";
-import Other from "views/Other";
+import Notes from "views/Notes";
+import Reminders from "views/Reminders";
 import Sidebar from "components/Sidebar";
 
 const Wrapper = styled.div`
@@ -27,13 +27,13 @@ const Main = () => {
         <Wrapper>
           <View>
             <Switch>
-              <Route path="/dashboard">
-                <Dashboard />
+              <Route path="/reminders">
+                <Reminders />
               </Route>
-              <Route path="/other">
-                <Other />
+              <Route path="/notes">
+                <Notes />
               </Route>
-              <Redirect to="/dashboard" />
+              <Redirect to="/reminders" />
             </Switch>
             <Sidebar />
           </View>

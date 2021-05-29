@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "components/Button";
 
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.error};
+  background-color: ${({ theme }) => theme.colors.background};
   position: relative;
   height: 100%;
 `;
@@ -14,7 +14,7 @@ const ViewWrapper = styled.div`
   justify-content: center;
 `;
 
-const Other = () => {
+const Notes = () => {
   return (
     <Wrapper>
       <ViewWrapper>
@@ -24,4 +24,4 @@ const Other = () => {
   );
 };
 
-export default Other;
+export default Notes;

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "components/Button";
+import { motion } from "framer-motion";
+import Icon from "components/Icon";
+import Input from "components/Input";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -20,12 +22,12 @@ const Card = styled.div`
   box-shadow: 0 0 2px 0 ${({ theme }) => theme.colors.darkPurple};
   overflow-y: auto;
   position: absolute;
-  top: 12%;
+  bottom: 4%;
   width: 80vw;
   height: 80vh;
 
   @media (min-width: 800px) {
-    width: 50vw;
+    width: 44vw;
   }
 `;
 
@@ -71,26 +73,20 @@ const Item = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
-const ButtonWrapper = styled.div`
+const StyledButton = styled(motion.button)`
+  background-color: transparent;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  width: 26px;
+  height: 26px;
 `;
 
-const DoneButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.succes};
-  width: 52px;
+const StyledIcon = styled(Icon)`
+  color: ${({ theme }) => theme.colors.darkGrey};
+  width: 24px;
   height: 24px;
 `;
 
-const DeleteButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.error};
-  width: 52px;
-  height: 24px;
-`;
-
-const Dashboard = () => {
+const Reminders = () => {
   return (
     <Wrapper>
       <ViewWrapper>
@@ -100,30 +96,27 @@ const Dashboard = () => {
             <ItemWrapper>
               <ItemNumber>1</ItemNumber>
               <Item>Wash the dishes</Item>
-              <ButtonWrapper>
-                <DoneButton whileTap={{ scale: 0.95 }}>Done</DoneButton>
-                <DeleteButton whileTap={{ scale: 0.95 }}>Delete</DeleteButton>
-              </ButtonWrapper>
+              <StyledButton whileTap={{ scale: 0.95 }}>
+                <StyledIcon icon="close" />
+              </StyledButton>
             </ItemWrapper>
           </CardItem>
           <CardItem>
             <ItemWrapper>
               <ItemNumber>2</ItemNumber>
               <Item>Take a dog for a walk</Item>
-              <ButtonWrapper>
-                <DoneButton whileTap={{ scale: 0.95 }}>Done</DoneButton>
-                <DeleteButton whileTap={{ scale: 0.95 }}>Delete</DeleteButton>
-              </ButtonWrapper>
+              <StyledButton whileTap={{ scale: 0.95 }}>
+                <StyledIcon icon="close" />
+              </StyledButton>
             </ItemWrapper>
           </CardItem>
           <CardItem>
             <ItemWrapper>
               <ItemNumber>3</ItemNumber>
               <Item>Make a bed</Item>
-              <ButtonWrapper>
-                <DoneButton whileTap={{ scale: 0.95 }}>Done</DoneButton>
-                <DeleteButton whileTap={{ scale: 0.95 }}>Delete</DeleteButton>
-              </ButtonWrapper>
+              <StyledButton whileTap={{ scale: 0.95 }}>
+                <StyledIcon icon="close" />
+              </StyledButton>
             </ItemWrapper>
           </CardItem>
         </Card>
@@ -132,4 +125,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Reminders;
