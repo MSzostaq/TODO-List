@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import Button from "components/Button";
-import Modal from "components/Modal";
-import NewRequestPopup from "popups/NewRequestPopup";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
@@ -26,39 +23,12 @@ const StyledLink = styled(NavLink)`
   text-decoration: none;
 `;
 
-const AddNewButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.buttonGrey};
-  color: ${({ theme }) => theme.colors.icons};
-  font-weight: bold;
-  height: 40px;
-`;
-
 const Sidebar = () => {
-  const [modal, setModal] = useState(null);
-
-  function onCreate() {
-    setModal(null);
-  }
-
-  function onNewRequestButtonClick() {
-    setModal({ title: "New request", onCreate });
-  }
-
   return (
-    <>
-      <Wrapper>
-        <StyledLink to="/dashboard">Dashboard</StyledLink>
-        <StyledLink to="/other">Other</StyledLink>
-        <AddNewButton onClick={onNewRequestButtonClick}>
-          New request
-        </AddNewButton>
-      </Wrapper>
-      {modal && (
-        <Modal>
-          <NewRequestPopup popup={modal} onClose={() => setModal(null)} />
-        </Modal>
-      )}
-    </>
+    <Wrapper>
+      <StyledLink to="/reminders">Reminders</StyledLink>
+      <StyledLink to="/notes">Notes</StyledLink>
+    </Wrapper>
   );
 };
 
