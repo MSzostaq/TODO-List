@@ -16,6 +16,14 @@ const ViewWrapper = styled.div`
   justify-content: center;
 `;
 
+const StyledInput = styled(Input)`
+  position: absolute;
+  top: 80px;
+  color: #333;
+  width: 300px;
+  height: 32px;
+`;
+
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
   border-radius: 12px;
@@ -81,7 +89,7 @@ const StyledButton = styled(motion.button)`
 `;
 
 const StyledIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.darkGrey};
+  color: ${({ theme }) => theme.colors.icons};
   width: 24px;
   height: 24px;
 `;
@@ -90,6 +98,7 @@ const Reminders = () => {
   return (
     <Wrapper>
       <ViewWrapper>
+        <StyledInput />
         <Card>
           <Title>Things to do:</Title>
           <CardItem>
