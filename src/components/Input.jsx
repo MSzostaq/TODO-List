@@ -10,7 +10,7 @@ const Input = styled.input`
 
   &:focus {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
-      0 0 0 4px rgba(143, 227, 136, 0.5);
+      0 0 0 4px rgba(103, 128, 159, 0.5);
 
     ${({ invalid }) =>
       invalid &&
