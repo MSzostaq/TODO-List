@@ -8,6 +8,13 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const DragIcon = styled(Icon)`
+  color: ${({ theme }) => theme.colors.icons};
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+`;
+
 const NameInput = styled.input`
   color: ${({ theme }) => theme.colors.darkGrey};
   font-size: ${({ theme }) => theme.fontSize.m};
@@ -34,6 +41,7 @@ const CloseIcon = styled(Icon)`
 const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
   return (
     <Wrapper>
+      <DragIcon icon="drag" />
       <Checkbox value={todo.isDone} onChange={onStatusChange} />
       <Name>{todo.name}</Name>
       <CloseButton onClick={() => onRemove(todo.id)}>
