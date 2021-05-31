@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "components/Button";
+import { BrowserRouter as Route } from "react-router-dom";
+import ListModal from "views/ListModal";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -14,14 +15,17 @@ const ViewWrapper = styled.div`
   justify-content: center;
 `;
 
-const Notes = () => {
+const Lists = () => {
   return (
     <Wrapper>
       <ViewWrapper>
-        <Button>Dashboard</Button>
+        <p>hello</p>
+        <Route path="/list/:id">
+          <ListModal />
+        </Route>
       </ViewWrapper>
     </Wrapper>
   );
 };
 
-export default Notes;
+export default Lists;

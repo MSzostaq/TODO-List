@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "constants/theme";
-import Notes from "views/Notes";
-import Reminders from "views/Reminders";
-import Sidebar from "components/Sidebar";
+import Lists from "views/Lists";
+import ListModal from "views/ListModal";
 
 const Wrapper = styled.div`
   position: relative;
@@ -26,16 +20,12 @@ const Main = () => {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <View>
-            <Switch>
-              <Route path="/reminders">
-                <Reminders />
-              </Route>
-              <Route path="/notes">
-                <Notes />
-              </Route>
-              <Redirect to="/reminders" />
-            </Switch>
-            <Sidebar />
+            <Route path="/">
+              <Lists />
+            </Route>
+            <Route path="/list">
+              <ListModal />
+            </Route>
           </View>
         </Wrapper>
       </ThemeProvider>
