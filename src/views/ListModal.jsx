@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { motion } from "framer-motion";
 import { getTodoListById } from "selectors";
-import Icon from "components/Icon";
 import TodoList from "components/TodoList";
 
 const Overlay = styled.div`

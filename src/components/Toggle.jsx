@@ -33,7 +33,7 @@ const Switch = styled.div`
   height: 24px;
 `;
 
-function Toggle({ size, value, onChange }) {
+const Toggle = ({ size, value, onChange }) => {
   function onButtonClick() {
     onChange(!value);
   }
@@ -42,6 +42,6 @@ function Toggle({ size, value, onChange }) {
       <Switch />
     </ToggleButton>
   );
-}
+};
 
 export default Toggle;
