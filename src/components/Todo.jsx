@@ -15,14 +15,15 @@ const DragIcon = styled(Icon)`
   height: 24px;
 `;
 
-const NameInput = styled.input`
-  color: ${({ theme }) => theme.colors.darkGrey};
-  font-size: ${({ theme }) => theme.fontSize.m};
-`;
+// const NameInput = styled.input`
+//   color: ${({ theme }) => theme.colors.darkGrey};
+//   font-size: ${({ theme }) => theme.fontSize.m};
+// `;
 
 const Name = styled.p`
   color: ${({ theme }) => theme.colors.darkGrey};
   font-size: ${({ theme }) => theme.fontSize.m};
+  text-decoration: ${({ isDone }) => (isDone ? "line-through" : "none")};
 `;
 
 const CloseButton = styled.button`
@@ -43,7 +44,7 @@ const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
     <Wrapper>
       <DragIcon icon="drag" />
       <Checkbox value={todo.isDone} onChange={onStatusChange} />
-      <Name>{todo.name}</Name>
+      <Name isDone={todo.isDone}>{todo.name}</Name>
       <CloseButton onClick={() => onRemove(todo.id)}>
         <CloseIcon icon="close" />
       </CloseButton>
