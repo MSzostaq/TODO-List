@@ -10,7 +10,9 @@ const Box = styled.div`
   height: 24px;
 `;
 
-const Tick = styled(Icon)``;
+const Tick = styled(Icon)`
+  color: ${({ theme }) => theme.colors.icons};
+`;
 
 const Checkbox = ({ className, value, onChange }) => {
   function onBoxClick() {
