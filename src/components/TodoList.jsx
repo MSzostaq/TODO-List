@@ -13,6 +13,7 @@ const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.grey};
   border-radius: 4px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: ${({ theme }) => theme.fontSize.l};
   margin: 8px;
   padding: 4px 8px;
 
