@@ -52,10 +52,12 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
   return (
     <Wrapper>
       <Input
+        autoFocus
         type="text"
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
         onKeyDown={onKeyDown}
+        placeholder="Add new event"
       />
       <Items>
         {todoList.items.length > 0 &&
