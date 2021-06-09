@@ -9,9 +9,16 @@ import Todo from "components/Todo";
 const Wrapper = styled.div``;
 
 const Input = styled.input`
-  border: 1px solid ${({ theme }) => theme.colors.error};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.grey};
   border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   margin: 8px;
+  padding: 4px 8px;
+
+  &:focus {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
+      0 0 0 2px rgba(103, 128, 159, 0.5);
 `;
 
 const Items = styled.div``;
@@ -20,7 +27,6 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
   const [inputValue, setInputValue] = useState("");
 
   function onKeyDown(event) {
-    console.log(event);
     if (event.keyCode === ENTER) {
       event.preventDefault();
       onTodoAdd(inputValue);
