@@ -6,7 +6,10 @@ import { ENTER } from "constants/keys";
 import { getTodosById } from "selectors";
 import Todo from "components/Todo";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Input = styled.input`
   background-color: ${({ theme }) => theme.colors.white};
@@ -16,6 +19,7 @@ const Input = styled.input`
   font-size: ${({ theme }) => theme.fontSize.l};
   margin: 8px;
   padding: 4px 8px;
+  width: 50%;
 
   &:focus {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
