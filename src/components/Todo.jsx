@@ -6,6 +6,14 @@ import Icon from "components/Icon";
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 70%;
+`;
+
+const DragIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const DragIcon = styled(Icon)`
@@ -42,8 +50,10 @@ const CloseIcon = styled(Icon)`
 const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
   return (
     <Wrapper>
-      <DragIcon icon="drag" />
-      <Checkbox value={todo.isDone} onChange={onStatusChange} />
+      <DragIconWrapper>
+        <DragIcon icon="drag" />
+        <Checkbox value={todo.isDone} onChange={onStatusChange} />
+      </DragIconWrapper>
       <Name isDone={todo.isDone}>{todo.name}</Name>
       <CloseButton onClick={() => onRemove(todo.id)}>
         <CloseIcon icon="close" />
