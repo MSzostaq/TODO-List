@@ -7,8 +7,18 @@ import { getTodosById } from "selectors";
 import Todo from "components/Todo";
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  padding-top: 56px;
+  position: relative;
+  height: 100%;
+`;
+
+const Header = styled.div`
+  background-color: ${({ theme }) => theme.colors.lightGrey};
+  padding: 8px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 56px;
 `;
 
 const Input = styled.input`
@@ -17,16 +27,24 @@ const Input = styled.input`
   border-radius: 4px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   font-size: ${({ theme }) => theme.fontSize.l};
-  margin: 8px;
-  padding: 4px 8px;
-  width: 50%;
+  padding: 0 8px;
+  height: 40px;
+  width: 100%;
 
   &:focus {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
       0 0 0 2px rgba(103, 128, 159, 0.5);
 `;
 
-const Items = styled.div``;
+const ItemsWrapper = styled.div`
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+`;
+
+const Items = styled.div`
+  padding: 8px;
+`;
 
 const TodoList = ({ className, dispatch, todosById, todoList }) => {
   const [inputValue, setInputValue] = useState("");
@@ -56,25 +74,29 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
 
   return (
     <Wrapper>
-      <Input
-        autoFocus
-        type="text"
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-        onKeyDown={onKeyDown}
-        placeholder="Add new event"
-      />
-      <Items>
-        {todoList.items.length > 0 &&
-          todoList.items.map((id) => (
-            <Todo
-              key={id}
-              todo={todosById[id]}
-              onRemove={onTodoRemove}
-              onStatusChange={(value) => onTodoStatusChange(id, value)}
-            />
-          ))}
-      </Items>
+      <Header>
+        <Input
+          autoFocus
+          type="text"
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          onKeyDown={onKeyDown}
+          placeholder="What are You up to?"
+        />
+      </Header>
+      <ItemsWrapper>
+        <Items>
+          {todoList.items.length > 0 &&
+            todoList.items.map((id) => (
+              <Todo
+                key={id}
+                todo={todosById[id]}
+                onRemove={onTodoRemove}
+                onStatusChange={(value) => onTodoStatusChange(id, value)}
+              />
+            ))}
+        </Items>
+      </ItemsWrapper>
     </Wrapper>
   );
 };
