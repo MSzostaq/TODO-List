@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "constants/theme";
 import Lists from "views/Lists";
@@ -20,12 +25,15 @@ const Main = () => {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <View>
-            <Route path="/">
-              <Lists />
-            </Route>
-            <Route path="/list">
-              <ListModal />
-            </Route>
+            <Switch>
+              <Route path="/list/:id">
+                <ListModal />
+              </Route>
+              <Route path="/">
+                <Lists />
+              </Route>
+              <Redirect to="/" />
+            </Switch>
           </View>
         </Wrapper>
       </ThemeProvider>

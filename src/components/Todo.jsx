@@ -29,7 +29,7 @@ const DragIcon = styled(Icon)`
 // `;
 
 const Name = styled.p`
-  color: ${({ theme }) => theme.colors.darkGrey};
+  color: ${({ theme }) => theme.colors.icons};
   font-size: ${({ theme }) => theme.fontSize.m};
   text-decoration: ${({ isDone }) => (isDone ? "line-through" : "none")};
 `;
@@ -63,5 +63,4 @@ const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
 };
 
 export default Todo;
-// TODO: style
 // <NameInput value={todo.name} onChange={onRename} />

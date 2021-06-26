@@ -1,31 +1,45 @@
 import React from "react";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { BrowserRouter as Route } from "react-router-dom";
-import ListModal from "views/ListModal";
+import { getTodoLists } from "selectors";
 
-const Wrapper = styled.div`
+const View = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   position: relative;
   height: 100%;
 `;
 
-const ViewWrapper = styled.div`
+const Cards = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 16px;
 `;
 
-const Lists = () => {
+const ListCard = styled(NavLink)`
+  box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.colors.darkPurple};
+  color: ${({ theme }) => theme.colors.darkGrey};
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.l};
+  display: flex;
+  flex-direction: column;
+  margin: 0 8px 8px 0;
+  padding: 8px;
+`;
+
+const Lists = ({ lists }) => {
   return (
-    <Wrapper>
-      <ViewWrapper>
-        <p>hello</p>
-        <Route path="/list/:id">
-          <ListModal />
-        </Route>
-      </ViewWrapper>
-    </Wrapper>
+    <View>
+      <Cards>
+        {lists.map((list) => (
+          <ListCard key={list.id} to={`/list/${list.id}`}>
+            {list.name}
+          </ListCard>
+        ))}
+      </Cards>
+    </View>
   );
 };
 
-export default Lists;
+const mapStateToProps = (state) => ({ lists: getTodoLists(state) });
+
+export default connect(mapStateToProps)(Lists);
