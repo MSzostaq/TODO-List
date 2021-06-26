@@ -1,6 +1,9 @@
 import { ADD_TODO, REMOVE_TODO } from "actions/todosActions";
 
-const initialState = { 1: { id: 1, name: "Shopping", items: [1] } };
+const initialState = {
+  1: { id: 1, name: "Shopping", items: [1] },
+  2: { id: 2, name: "Games to play", items: [] },
+};
 
 export default function todoListsReducer(state = initialState, action) {
   switch (action.type) {
