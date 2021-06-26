@@ -170,3 +170,9 @@ input {
 #root {
   height: 100%;
 }
+
+a {
+  color: inherit;
+  outline: 0;
+  text-decoration: none;
+}
