@@ -1,41 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { motion } from "framer-motion";
 import { getTodoListById } from "selectors";
 import TodoList from "components/TodoList";
 
-const Overlay = styled.div`
-  background-color: rgba(0, 0, 0, 0.7);
+const View = styled.div`
+  background-color: ${({ theme }) => theme.colors.background};
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 0;
-  width: 100%;
+  position: relative;
   height: 100%;
 `;
 
-const Popup = styled(motion.div)`
-  background-color: #f8f8f8;
+const ListWrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0 0.3);
-  color: #000;
-  padding: 56px 0;
-  position: relative;
+  box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.darkPurple};
+  height: 80vh;
   overflow: hidden;
-  max-width: 100vw;
-  width: 420px;
+  position: relative;
+  width: 30%;
 `;
 
 const ListModal = ({ todoList }) => {
   return (
-    <Overlay>
-      <Popup>
+    <View>
+      <ListWrapper>
         <TodoList todoList={todoList} />
-      </Popup>
-    </Overlay>
+      </ListWrapper>
+    </View>
   );
 };
 

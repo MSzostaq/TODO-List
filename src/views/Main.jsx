@@ -8,7 +8,7 @@ import {
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "constants/theme";
 import Lists from "views/Lists";
-import ListModal from "views/ListModal";
+import List from "views/List";
 
 const Wrapper = styled.div`
   position: relative;
@@ -27,7 +27,7 @@ const Main = () => {
           <View>
             <Switch>
               <Route path="/list/:id">
-                <ListModal />
+                <List />
               </Route>
               <Route path="/">
                 <Lists />
