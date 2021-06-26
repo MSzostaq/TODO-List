@@ -6,14 +6,14 @@ import Icon from "components/Icon";
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 70%;
 `;
 
-const DragIconWrapper = styled.div`
+const DragHandle = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
 `;
 
 const DragIcon = styled(Icon)`
@@ -31,29 +31,33 @@ const DragIcon = styled(Icon)`
 const Name = styled.p`
   color: ${({ theme }) => theme.colors.icons};
   font-size: ${({ theme }) => theme.fontSize.m};
+  margin-left: 12px;
   text-decoration: ${({ isDone }) => (isDone ? "line-through" : "none")};
 `;
 
 const CloseButton = styled.button`
   background-color: transparent;
   display: flex;
-  width: 26px;
-  height: 26px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
 `;
 
 const CloseIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.icons};
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
 `;
 
 const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
   return (
     <Wrapper>
-      <DragIconWrapper>
+      <DragHandle>
         <DragIcon icon="drag" />
-        <Checkbox value={todo.isDone} onChange={onStatusChange} />
-      </DragIconWrapper>
+      </DragHandle>
+      <Checkbox value={todo.isDone} onChange={onStatusChange} />
       <Name isDone={todo.isDone}>{todo.name}</Name>
       <CloseButton onClick={() => onRemove(todo.id)}>
         <CloseIcon icon="close" />
