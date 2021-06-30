@@ -38,7 +38,6 @@ const Input = styled.input`
 
 const ItemsWrapper = styled.div`
   overflow-y: auto;
-  overflow-x: hidden;
   height: 100%;
 `;
 
