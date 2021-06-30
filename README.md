@@ -1,1 +1,1 @@
-## Simple to do list application made using React Redux
+## Simple todo list application made using React Redux
