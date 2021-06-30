@@ -16,6 +16,7 @@ const Cards = styled.div`
 `;
 
 const ListCard = styled(NavLink)`
+  border-radius: 8px;
   box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.colors.darkPurple};
   color: ${({ theme }) => theme.colors.darkGrey};
   cursor: pointer;
