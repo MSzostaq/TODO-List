@@ -60,7 +60,7 @@ const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
       <Checkbox value={todo.isDone} onChange={onStatusChange} />
       <Name isDone={todo.isDone}>{todo.name}</Name>
       <CloseButton onClick={() => onRemove(todo.id)}>
-        <CloseIcon icon="cancel16" />
+        <CloseIcon icon="cancel_16" />
       </CloseButton>
     </Wrapper>
   );
