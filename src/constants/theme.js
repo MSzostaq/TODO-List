@@ -8,7 +8,7 @@ export const theme = {
     darkGrey: "#434343",
     darkPurple: "#acb3c0",
     error: "#ce5a5a",
-    grey: "#888888",
+    grey: "#808080",
     icons: "#696969",
     lightGrey: "#F0F0F0",
     selectedGreen: "#1ad1c2",
