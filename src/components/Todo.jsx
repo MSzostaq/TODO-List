@@ -17,7 +17,7 @@ const DragHandle = styled.div`
 `;
 
 const DragIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.icons};
+  color: ${({ theme }) => theme.colors.grey};
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -46,7 +46,7 @@ const CloseButton = styled.button`
 `;
 
 const CloseIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.icons};
+  color: ${({ theme }) => theme.colors.grey};
   width: 16px;
   height: 16px;
 `;
@@ -60,7 +60,7 @@ const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
       <Checkbox value={todo.isDone} onChange={onStatusChange} />
       <Name isDone={todo.isDone}>{todo.name}</Name>
       <CloseButton onClick={() => onRemove(todo.id)}>
-        <CloseIcon icon="close" />
+        <CloseIcon icon="cancel16" />
       </CloseButton>
     </Wrapper>
   );
