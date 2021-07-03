@@ -20,9 +20,9 @@ const ListCard = styled(NavLink)`
   box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.colors.darkPurple};
   color: ${({ theme }) => theme.colors.darkGrey};
   cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSize.l};
   display: flex;
   flex-direction: column;
+  font-size: ${({ theme }) => theme.fontSize.l};
   margin: 0 8px 8px 0;
   padding: 8px;
 `;
