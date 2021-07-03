@@ -20,7 +20,15 @@ const ListWrapper = styled.div`
   max-height: 300px;
   overflow: hidden;
   position: relative;
-  width: 30%;
+  width: 60%;
+
+  @media (min-width: 800px) {
+    width: 40%;
+  }
+
+  @media (min-width: 1250px) {
+    width: 30%;
+  }
 `;
 
 const List = ({ todoList }) => {
