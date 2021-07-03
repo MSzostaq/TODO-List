@@ -23,7 +23,7 @@ const ListWrapper = styled.div`
   width: 30%;
 `;
 
-const ListModal = ({ todoList }) => {
+const List = ({ todoList }) => {
   return (
     <View>
       <ListWrapper>
@@ -37,4 +37,4 @@ const mapStateToProps = (state) => ({
   todoList: getTodoListById(state, 1),
 });
 
-export default connect(mapStateToProps)(ListModal);
+export default connect(mapStateToProps)(List);
