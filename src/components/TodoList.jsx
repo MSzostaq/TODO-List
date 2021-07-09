@@ -37,8 +37,9 @@ const Input = styled.input`
 `;
 
 const ItemsWrapper = styled.div`
+  max-height: 420px;
   overflow-y: auto;
-  height: 100%;
+  height: auto;
 `;
 
 const Items = styled.div`
