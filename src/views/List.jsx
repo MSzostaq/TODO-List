@@ -17,16 +17,19 @@ const ListWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
   box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.darkPurple};
-  max-height: 300px;
-  overflow: hidden;
+  max-height: 600px;
+  overflow-y: auto;
   position: relative;
   width: 60%;
+  height: auto;
 
   @media (min-width: 800px) {
+    max-height: 560px;
     width: 40%;
   }
 
   @media (min-width: 1250px) {
+    max-height: 500px;
     width: 30%;
   }
 `;
