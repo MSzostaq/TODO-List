@@ -5,16 +5,13 @@ import Icon from "components/Icon";
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: start;
   justify-content: center;
+  padding: 4px 0;
 `;
 
 const DragHandle = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
 `;
 
 const DragIcon = styled(Icon)`
@@ -32,9 +29,8 @@ const DragIcon = styled(Icon)`
 const Name = styled.p`
   color: ${({ theme }) => theme.colors.icons};
   font-size: ${({ theme }) => theme.fontSize.m};
-  line-height: 1.2;
-  margin-top: 4px;
-  margin-left: 12px;
+  line-height: 20px;
+  margin: 2px 12px;
   text-align: left;
   text-decoration: ${({ isDone }) => (isDone ? "line-through" : "none")};
   width: 70%;
@@ -46,8 +42,8 @@ const CloseButton = styled.button`
   align-items: center;
   justify-content: center;
   margin-left: auto;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 `;
 
 const CloseIcon = styled(Icon)`
