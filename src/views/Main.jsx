@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -26,9 +26,10 @@ const Main = () => {
         <Wrapper>
           <View>
             <Switch>
-              <Route path="/list/:id">
-                <List />
-              </Route>
+              <Route
+                path="/list/:id"
+                render={(routeProps) => <List {...routeProps} />}
+              />
               <Route path="/">
                 <Lists />
               </Route>
