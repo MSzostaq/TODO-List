@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import clamp from "lodash/clamp";
 import { addTodo, REMOVE_TODO, UPDATE_TODO_STATUS } from "actions/todosActions";
+import { UPDATE_LIST_ITEMS_ORDER } from "actions/todoListsActions";
 import { ENTER } from "constants/keys";
 import { getTodosById } from "selectors";
 import Todo from "components/Todo";
 
 const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
   padding-top: 96px;
   position: relative;
   height: 100%;
@@ -57,6 +60,7 @@ const Items = styled.div`
 
 const TodoList = ({ className, dispatch, todosById, todoList }) => {
   const [inputValue, setInputValue] = useState("");
+  const positions = useRef([]).current;
 
   function onKeyDown(event) {
     if (event.keyCode === ENTER) {
@@ -81,6 +85,65 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     });
   }
 
+  function getTargetIndex(index, yOffset) {
+    let target = index;
+    const buffer = 5;
+    const { top, height } = positions[index];
+    const bottom = top + height;
+
+    // moving down
+    if (yOffset > 0) {
+      const nextItem = positions[index + 1];
+      if (nextItem === undefined) {
+        return index;
+      }
+      const swapOffset =
+        Math.abs(bottom - (nextItem.top + nextItem.height / 2)) + buffer;
+      if (yOffset > swapOffset) {
+        target = index + 1;
+      }
+
+      // moving up
+    } else if (yOffset < 0) {
+      const prevItem = positions[index - 1];
+      if (prevItem === undefined) {
+        return index;
+      }
+      const prevBottom = prevItem.top + prevItem.height;
+      const swapOffset =
+        Math.abs(top - (prevBottom - prevItem.height / 2)) + buffer;
+      if (yOffset < -swapOffset) {
+        target = index - 1;
+      }
+    }
+    return clamp(target, 0, positions.length);
+  }
+
+  const setPosition = (index, offset) => {
+    positions[index] = offset;
+  };
+
+  const swapItems = (arr, index, targetIndex) => {
+    const swapped = [...arr];
+    const item = swapped[index];
+    swapped[index] = swapped[targetIndex];
+    swapped[targetIndex] = item;
+    return swapped;
+  };
+
+  const onItemDrag = (index, dragOffset) => {
+    const targetIndex = getTargetIndex(index, dragOffset);
+    if (targetIndex !== index) {
+      dispatch({
+        type: UPDATE_LIST_ITEMS_ORDER,
+        payload: {
+          id: todoList.id,
+          order: swapItems(todoList.items, index, targetIndex),
+        },
+      });
+    }
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -97,12 +160,15 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
       <ItemsWrapper>
         <Items>
           {todoList.items.length > 0 &&
-            todoList.items.map((id) => (
+            todoList.items.map((id, i) => (
               <Todo
                 key={id}
+                index={i}
                 todo={todosById[id]}
+                onItemDrag={onItemDrag}
                 onRemove={onTodoRemove}
                 onStatusChange={(value) => onTodoStatusChange(id, value)}
+                setPosition={setPosition}
               />
             ))}
         </Items>

@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { motion, useDragControls, useMotionValue } from "framer-motion";
 import Checkbox from "components/Checkbox";
 import Icon from "components/Icon";
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
+  background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   justify-content: center;
   padding: 4px 0;
 `;
 
 const DragHandle = styled.div`
+  cursor: move;
   display: flex;
   justify-content: center;
 `;
 
 const DragIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.grey};
-  cursor: pointer;
   width: 24px;
   height: 24px;
 `;
@@ -52,10 +54,73 @@ const CloseIcon = styled(Icon)`
   height: 16px;
 `;
 
-const Todo = ({ className, onRemove, onRename, onStatusChange, todo }) => {
+const Todo = ({
+  className,
+  index,
+  onItemDrag,
+  onRemove,
+  onRename,
+  onStatusChange,
+  setPosition,
+  todo,
+}) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const dragControls = useDragControls();
+  const ref = useRef(null);
+  const dragOriginY = useMotionValue(0);
+
+  useEffect(() => {
+    setPosition(index, {
+      top: ref.current.offsetTop,
+      height: ref.current.offsetHeight,
+    });
+  });
+
+  const onDragStart = () => {
+    setIsDragging(true);
+  };
+
+  const onDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  const onPointerDown = (event) => {
+    dragControls.start(event);
+  };
+
+  const itemVariants = {
+    flat: {
+      zIndex: 0,
+      transition: { delay: 2 },
+    },
+    onTop: {
+      zIndex: 1,
+    },
+  };
+
   return (
-    <Wrapper>
-      <DragHandle>
+    <Wrapper
+      animate={isDragging ? "onTop" : "flat"}
+      drag="y"
+      dragControls={dragControls}
+      dragConstraints={{ top: 0, bottom: 0 }}
+      dragElastic={1}
+      dragMomentum={false}
+      dragListener={false}
+      dragOriginY={dragOriginY}
+      onDrag={(e, { point }) => onItemDrag(index, point.y)}
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      positionTransition={({ delta }) => {
+        if (isDragging) {
+          dragOriginY.set(dragOriginY.get() + delta.y);
+        }
+        return !isDragging;
+      }}
+      ref={ref}
+      variants={itemVariants}
+    >
+      <DragHandle onPointerDown={onPointerDown}>
         <DragIcon icon="drag" />
       </DragHandle>
       <Checkbox value={todo.isDone} onChange={onStatusChange} />
