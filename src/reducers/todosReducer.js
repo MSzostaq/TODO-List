@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   1: { id: 1, todoListId: 1, name: "bananas", isDone: false },
+  2: { id: 2, todoListId: 2, name: "Resident Evil", isDone: false },
 };
 
 export default function todosReducer(state = initialState, action) {

@@ -2,7 +2,7 @@ import { ADD_TODO, REMOVE_TODO } from "actions/todosActions";
 
 const initialState = {
   1: { id: 1, name: "Shopping", items: [1] },
-  2: { id: 2, name: "Games to play", items: [] },
+  2: { id: 2, name: "Games to play", items: [2] },
 };
 
 export default function todoListsReducer(state = initialState, action) {

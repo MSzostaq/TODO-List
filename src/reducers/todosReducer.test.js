@@ -3,24 +3,60 @@ import {
   REMOVE_TODO,
   UPDATE_TODO_STATUS,
 } from "actions/todosActions";
-import todosReducer from "reducers/todosReducer";
+import reducer from "reducers/todosReducer";
 
 describe("todos reducer", () => {
   it("should handle ADD_TODO", () => {
-    const state = [{ id: 1, todoListId: 1, name: "bananas", isDone: false }];
+    const state = {
+      1: { id: 1, todoListId: 1, name: "bananas", isDone: false },
+    };
     const action = {
       type: ADD_TODO,
       payload: {
         id: 2,
-        todoListId: 2,
-        name: "Buy 3 apples",
-        idDone: false,
+        todoListId: 1,
+        name: "3 apples",
+        isDone: false,
       },
     };
     const expectedState = {
-      "0": { id: 1, isDone: false, name: "bananas", todoListId: 1 },
-      "2": { id: 2, idDone: false, name: "Buy 3 apples", todoListId: 2 },
+      1: { id: 1, todoListId: 1, name: "bananas", isDone: false },
+      2: { id: 2, todoListId: 1, name: "3 apples", isDone: false },
     };
-    expect(todosReducer(state, action)).toEqual(expectedState);
+    expect(reducer(state, action)).toEqual(expectedState);
+  });
+
+  it("should handle REMOVE_TODO", () => {
+    const state = {
+      1: { id: 1, todoListId: 1, name: "bananas", isDone: false },
+      2: { id: 2, todoListId: 1, name: "3 apples", isDone: false },
+    };
+    const action = {
+      type: REMOVE_TODO,
+      payload: {
+        id: 2,
+      },
+    };
+    const expectedState = {
+      1: { id: 1, todoListId: 1, name: "bananas", isDone: false },
+    };
+    expect(reducer(state, action)).toEqual(expectedState);
+  });
+
+  it("should handle UPDATE_TODO_STATUS", () => {
+    const state = {
+      1: { id: 1, todoListId: 1, name: "bananas", isDone: false },
+    };
+    const action = {
+      type: UPDATE_TODO_STATUS,
+      payload: {
+        id: 1,
+        isDone: true,
+      },
+    };
+    const expectedState = {
+      1: { id: 1, todoListId: 1, name: "bananas", isDone: true },
+    };
+    expect(reducer(state, action)).toEqual(expectedState);
   });
 });
