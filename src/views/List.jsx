@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { getTodoListById } from "selectors";
@@ -11,6 +12,21 @@ const View = styled.div`
   justify-content: center;
   position: relative;
   height: 100%;
+`;
+
+const BackButton = styled(NavLink)`
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.colors.darkPurple};
+  color: ${({ theme }) => theme.colors.darkGrey};
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: ${({ theme }) => theme.fontSize.l};
+  margin: 0 8px 8px 0;
+  padding: 8px;
+  position: absolute;
+  top: 16px;
+  left: 16px;
 `;
 
 const ListWrapper = styled.div`
@@ -33,6 +49,7 @@ const ListWrapper = styled.div`
 const List = ({ todoList }) => {
   return (
     <View>
+      <BackButton to="/">Back</BackButton>
       <ListWrapper>
         <TodoList todoList={todoList} />
       </ListWrapper>
