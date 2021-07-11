@@ -7,7 +7,7 @@ import { getTodosById } from "selectors";
 import Todo from "components/Todo";
 
 const Wrapper = styled.div`
-  padding-top: 56px;
+  padding-top: 96px;
   position: relative;
   height: 100%;
 `;
@@ -18,7 +18,15 @@ const Header = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  height: 56px;
+  height: 96px;
+`;
+
+const Name = styled.h1`
+  color: ${({ theme }) => theme.colors.icons};
+  font-size: ${({ theme }) => theme.fontSize.l};
+  font-weight: bold;
+  line-height: 32px;
+  padding-left: 4px;
 `;
 
 const Input = styled.input`
@@ -27,6 +35,7 @@ const Input = styled.input`
   border-radius: 4px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   font-size: ${({ theme }) => theme.fontSize.l};
+  margin-top: 8px;
   padding: 0 8px;
   height: 40px;
   width: 100%;
@@ -75,13 +84,14 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
   return (
     <Wrapper>
       <Header>
+        <Name>{todoList.name}</Name>
         <Input
           autoFocus
           type="text"
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="What are You up to?"
+          placeholder="What are you up to?"
         />
       </Header>
       <ItemsWrapper>
