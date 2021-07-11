@@ -1,4 +1,5 @@
 import { ADD_TODO, REMOVE_TODO } from "actions/todosActions";
+import { UPDATE_LIST_ITEMS_ORDER } from "actions/todoListsActions";
 
 const initialState = {
   1: { id: 1, name: "Shopping", items: [1] },
@@ -21,6 +22,12 @@ export default function todoListsReducer(state = initialState, action) {
         items: currentList.items.filter((item) => item !== id),
       };
       return { ...state, [todoListId]: updatedList };
+    }
+    case UPDATE_LIST_ITEMS_ORDER: {
+      const { id, order } = action.payload;
+      const currentList = state[id];
+      const updatedList = { ...currentList, items: order };
+      return { ...state, [id]: updatedList };
     }
     default:
       return state;
