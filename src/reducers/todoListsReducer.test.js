@@ -1,4 +1,5 @@
 import { ADD_TODO, REMOVE_TODO } from "actions/todosActions";
+import { UPDATE_LIST_ITEMS_ORDER } from "actions/todoListsActions";
 import reducer from "reducers/todoListsReducer";
 
 describe("todoLists reducer", () => {
@@ -32,6 +33,23 @@ describe("todoLists reducer", () => {
     };
     const expectedState = {
       1: { id: 1, name: "Shopping", items: [1] },
+    };
+    expect(reducer(state, action)).toEqual(expectedState);
+  });
+
+  it("should handle UPDATE_LIST_ITEMS_ORDER", () => {
+    const state = {
+      1: { id: 1, name: "Shopping", items: [1, 2] },
+    };
+    const action = {
+      type: UPDATE_LIST_ITEMS_ORDER,
+      payload: {
+        id: 1,
+        order: [2, 1],
+      },
+    };
+    const expectedState = {
+      1: { id: 1, name: "Shopping", items: [2, 1] },
     };
     expect(reducer(state, action)).toEqual(expectedState);
   });
