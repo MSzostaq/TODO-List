@@ -40,8 +40,8 @@ const List = ({ todoList }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  todoList: getTodoListById(state, 1),
+const mapStateToProps = (state, props) => ({
+  todoList: getTodoListById(state, props.match.params.id),
 });
 
 export default connect(mapStateToProps)(List);
