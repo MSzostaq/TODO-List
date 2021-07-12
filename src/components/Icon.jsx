@@ -10,7 +10,7 @@ const Svg = styled(motion.svg)`
   vertical-align: middle;
 `;
 
-function Icon({ className, icon, onClick }) {
+const Icon = ({ className, icon, onClick }) => {
   const { path = "", size = 24 } = icons[icon] || {};
   return (
     <Svg
@@ -21,6 +21,6 @@ function Icon({ className, icon, onClick }) {
       <path d={path} />
     </Svg>
   );
-}
+};
 
 export default Icon;
