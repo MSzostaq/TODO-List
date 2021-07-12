@@ -119,19 +119,19 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     return clamp(target, 0, positions.length);
   }
 
-  const setPosition = (index, offset) => {
+  function setPosition(index, offset) {
     positions[index] = offset;
-  };
+  }
 
-  const swapItems = (arr, index, targetIndex) => {
+  function swapItems(arr, index, targetIndex) {
     const swapped = [...arr];
     const item = swapped[index];
     swapped[index] = swapped[targetIndex];
     swapped[targetIndex] = item;
     return swapped;
-  };
+  }
 
-  const onItemDrag = (index, dragOffset) => {
+  function onItemDrag(index, dragOffset) {
     const targetIndex = getTargetIndex(index, dragOffset);
     if (targetIndex !== index) {
       dispatch({
@@ -142,7 +142,7 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
         },
       });
     }
-  };
+  }
 
   return (
     <Wrapper>
