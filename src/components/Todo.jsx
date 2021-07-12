@@ -76,17 +76,17 @@ const Todo = ({
     });
   });
 
-  const onDragStart = () => {
+  function onDragStart() {
     setIsDragging(true);
-  };
+  }
 
-  const onDragEnd = () => {
+  function onDragEnd() {
     setIsDragging(false);
-  };
+  }
 
-  const onPointerDown = (event) => {
+  function onPointerDown(event) {
     dragControls.start(event);
-  };
+  }
 
   const itemVariants = {
     flat: {
