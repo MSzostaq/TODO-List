@@ -21,7 +21,7 @@ const BackButton = styled(NavLink)`
   cursor: pointer;
   display: flex;
   font-size: ${({ theme }) => theme.fontSize.l};
-  padding: 8px;
+  padding: 4px;
   position: absolute;
   top: 16px;
   left: 16px;
