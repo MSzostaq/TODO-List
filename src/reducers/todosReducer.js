@@ -2,6 +2,7 @@ import omit from "lodash/omit";
 import {
   ADD_TODO,
   REMOVE_TODO,
+  UPDATE_TODO_NAME,
   UPDATE_TODO_STATUS,
 } from "actions/todosActions";
 
@@ -12,14 +13,22 @@ const initialState = {
 
 export default function todosReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_TODO:
+    case ADD_TODO: {
       return { ...state, [action.payload.id]: action.payload };
-    case REMOVE_TODO:
+    }
+    case REMOVE_TODO: {
       return omit(state, action.payload.id);
-    case UPDATE_TODO_STATUS:
+    }
+    case UPDATE_TODO_NAME: {
+      const currentTodo = state[action.payload.id];
+      const updatedTodo = { ...currentTodo, name: action.payload.name };
+      return { ...state, [action.payload.id]: updatedTodo };
+    }
+    case UPDATE_TODO_STATUS: {
       const currentTodo = state[action.payload.id];
       const updatedTodo = { ...currentTodo, isDone: action.payload.isDone };
       return { ...state, [action.payload.id]: updatedTodo };
+    }
     default:
       return state;
   }
