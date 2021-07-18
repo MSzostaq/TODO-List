@@ -1,30 +1,37 @@
-import React, { useRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import clamp from "lodash/clamp";
-import { addTodo, REMOVE_TODO, UPDATE_TODO_STATUS } from "actions/todosActions";
+import {
+  addTodo,
+  REMOVE_TODO,
+  UPDATE_TODO_NAME,
+  UPDATE_TODO_STATUS,
+} from "actions/todosActions";
 import {
   UPDATE_LIST_ITEMS_ORDER,
   UPDATE_LIST_NAME,
 } from "actions/todoListsActions";
 import { ENTER } from "constants/keys";
 import { getTodosById } from "selectors";
+import Icon from "components/Icon";
 import Todo from "components/Todo";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
-  padding-top: 96px;
+  padding-top: 48px;
   position: relative;
   height: 100%;
 `;
 
 const Header = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
+  display: flex;
   padding: 8px;
   position: absolute;
   top: 0;
   width: 100%;
-  height: 96px;
+  height: 48px;
 `;
 
 const Name = styled.input`
@@ -35,20 +42,19 @@ const Name = styled.input`
   padding-left: 4px;
 `;
 
-const Input = styled.input`
-  background-color: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.grey};
-  border-radius: 4px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  font-size: ${({ theme }) => theme.fontSize.l};
-  margin-top: 8px;
-  padding: 0 8px;
-  height: 40px;
-  width: 100%;
+const AddButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  width: 32px;
+  heigth: 32px;
+`;
 
-  &:focus {
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
-      0 0 0 2px rgba(103, 128, 159, 0.5);
+const AddIcon = styled(Icon)`
+  color: ${({ theme }) => theme.colors.icons};
+  width: 24px;
+  height: 24px;
 `;
 
 const ItemsWrapper = styled.div`
@@ -62,19 +68,10 @@ const Items = styled.div`
 `;
 
 const TodoList = ({ className, dispatch, todosById, todoList }) => {
-  const [inputValue, setInputValue] = useState("");
   const positions = useRef([]).current;
 
-  function onKeyDown(event) {
-    if (event.keyCode === ENTER) {
-      event.preventDefault();
-      onTodoAdd(inputValue);
-      setInputValue("");
-    }
-  }
-
-  function onTodoAdd(name) {
-    dispatch(addTodo({ name, todoListId: todoList.id }));
+  function onAddButtonClick() {
+    dispatch(addTodo({ todoListId: todoList.id }));
   }
 
   function onTodoRemove(id) {
@@ -87,6 +84,47 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
       payload: { id, isDone },
     });
   }
+
+  function onNameChange(event) {
+    dispatch({
+      type: UPDATE_LIST_NAME,
+      payload: {
+        id: todoList.id,
+        name: event.target.value,
+      },
+    });
+  }
+
+  function onTodoNameChange(id, name) {
+    dispatch({
+      type: UPDATE_TODO_NAME,
+      payload: { id, name },
+    });
+  }
+
+  function onTodoNameKeyDown(event) {
+    if (event.keyCode === ENTER) {
+      event.preventDefault();
+      dispatch(addTodo({ todoListId: todoList.id }));
+    }
+  }
+
+  function getRefs(items) {
+    return items.reduce((acc, item) => {
+      acc[item.id] = createRef();
+      return acc;
+    }, {});
+  }
+  const [refs, setRefs] = useState(() => getRefs(todoList.items));
+
+  useEffect(() => {
+    setRefs(getRefs(todoList.items));
+    const lastItem = todoList.items[todoList.items.length - 1];
+    const itemToFocus = refs[lastItem.id].current;
+    if (itemToFocus) {
+      itemToFocus.focus();
+    }
+  }, [todoList.items]);
 
   function getTargetIndex(index, yOffset) {
     let target = index;
@@ -147,16 +185,6 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     }
   }
 
-  function onNameChange(event) {
-    dispatch({
-      type: UPDATE_LIST_NAME,
-      payload: {
-        id: todoList.id,
-        name: event.target.value,
-      },
-    });
-  }
-
   return (
     <Wrapper>
       <Header>
@@ -166,24 +194,23 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
           onChange={onNameChange}
           placeholder="Name"
         />
-        <Input
-          type="text"
-          value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
-          onKeyDown={onKeyDown}
-          placeholder="What are you up to?"
-        />
+        <AddButton onClick={onAddButtonClick}>
+          <AddIcon icon="add" />
+        </AddButton>
       </Header>
       <ItemsWrapper>
         <Items>
           {todoList.items.length > 0 &&
             todoList.items.map((id, i) => (
               <Todo
+                ref={refs[id]}
                 key={id}
                 index={i}
                 todo={todosById[id]}
                 onItemDrag={onItemDrag}
                 onRemove={onTodoRemove}
+                onNameChange={(value) => onTodoNameChange(id, value)}
+                onNameKeyDown={onTodoNameKeyDown}
                 onStatusChange={(value) => onTodoStatusChange(id, value)}
                 setPosition={setPosition}
               />
