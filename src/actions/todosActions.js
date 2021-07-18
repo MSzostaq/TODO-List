@@ -14,5 +14,5 @@ export function addTodo({
 }
 
 export const REMOVE_TODO = "REMOVE_TODO";
-export const RENAME_TODO = "RENAME_TODO";
+export const UPDATE_TODO_NAME = "UPDATE_TODO_NAME";
 export const UPDATE_TODO_STATUS = "UPDATE_TODO_STATUS";
