@@ -24,7 +24,11 @@ const Checkbox = ({ className, value, onChange }) => {
     onChange(!value);
   }
 
-  return <Box onClick={onBoxClick}>{value && <Tick icon="approved_16" />}</Box>;
+  return (
+    <Box className={className} onClick={onBoxClick}>
+      {value && <Tick icon="approved_16" />}
+    </Box>
+  );
 };
 
 export default Checkbox;
