@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import clamp from "lodash/clamp";
 import { addTodo, REMOVE_TODO, UPDATE_TODO_STATUS } from "actions/todosActions";
-import { UPDATE_LIST_ITEMS_ORDER } from "actions/todoListsActions";
+import {
+  UPDATE_LIST_ITEMS_ORDER,
+  UPDATE_LIST_NAME,
+} from "actions/todoListsActions";
 import { ENTER } from "constants/keys";
 import { getTodosById } from "selectors";
 import Todo from "components/Todo";
@@ -24,7 +27,7 @@ const Header = styled.div`
   height: 96px;
 `;
 
-const Name = styled.h1`
+const Name = styled.input`
   color: ${({ theme }) => theme.colors.icons};
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: bold;
@@ -144,12 +147,26 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     }
   }
 
+  function onNameChange(event) {
+    dispatch({
+      type: UPDATE_LIST_NAME,
+      payload: {
+        id: todoList.id,
+        name: event.target.value,
+      },
+    });
+  }
+
   return (
     <Wrapper>
       <Header>
-        <Name>{todoList.name}</Name>
+        <Name
+          type="text"
+          value={todoList.name}
+          onChange={onNameChange}
+          placeholder="Name"
+        />
         <Input
-          autoFocus
           type="text"
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
