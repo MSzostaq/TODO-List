@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useDragControls, useMotionValue } from "framer-motion";
 import Checkbox from "components/Checkbox";
 import Icon from "components/Icon";
+import TodoName from "components/TodoName";
 
 const Wrapper = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.white};
@@ -15,6 +16,7 @@ const DragHandle = styled.div`
   cursor: move;
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
 `;
 
 const DragIcon = styled(Icon)`
@@ -23,19 +25,12 @@ const DragIcon = styled(Icon)`
   height: 24px;
 `;
 
-// const NameInput = styled.input`
-//   color: ${({ theme }) => theme.colors.darkGrey};
-//   font-size: ${({ theme }) => theme.fontSize.m};
-// `;
+const StyledCheckbox = styled(Checkbox)`
+  flex-shrink: 0;
+`;
 
-const Name = styled.p`
-  color: ${({ theme }) => theme.colors.icons};
-  font-size: ${({ theme }) => theme.fontSize.m};
-  line-height: 20px;
+const Name = styled(TodoName)`
   margin: 2px 12px;
-  text-align: left;
-  text-decoration: ${({ isDone }) => (isDone ? "line-through" : "none")};
-  width: 70%;
 `;
 
 const CloseButton = styled.button`
@@ -54,83 +49,96 @@ const CloseIcon = styled(Icon)`
   height: 16px;
 `;
 
-const Todo = ({
-  className,
-  index,
-  onItemDrag,
-  onRemove,
-  onRename,
-  onStatusChange,
-  setPosition,
-  todo,
-}) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const dragControls = useDragControls();
-  const ref = useRef(null);
-  const dragOriginY = useMotionValue(0);
+const Todo = forwardRef(
+  (
+    {
+      className,
+      index,
+      onItemDrag,
+      onKeyDown,
+      onNameChange,
+      onNameKeyDown,
+      onRemove,
+      onRename,
+      onStatusChange,
+      setPosition,
+      todo,
+    },
+    ref
+  ) => {
+    const [isDragging, setIsDragging] = useState(false);
+    const dragControls = useDragControls();
+    const wrapperRef = useRef(null);
+    const dragOriginY = useMotionValue(0);
 
-  useEffect(() => {
-    setPosition(index, {
-      top: ref.current.offsetTop,
-      height: ref.current.offsetHeight,
+    useEffect(() => {
+      setPosition(index, {
+        top: wrapperRef.current.offsetTop,
+        height: wrapperRef.current.offsetHeight,
+      });
     });
-  });
 
-  function onDragStart() {
-    setIsDragging(true);
+    function onDragStart() {
+      setIsDragging(true);
+    }
+
+    function onDragEnd() {
+      setIsDragging(false);
+    }
+
+    function onPointerDown(event) {
+      dragControls.start(event);
+    }
+
+    const itemVariants = {
+      flat: {
+        zIndex: 0,
+        transition: { delay: 2 },
+      },
+      onTop: {
+        zIndex: 1,
+      },
+    };
+
+    return (
+      <Wrapper
+        animate={isDragging ? "onTop" : "flat"}
+        drag="y"
+        dragControls={dragControls}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={1}
+        dragMomentum={false}
+        dragListener={false}
+        dragOriginY={dragOriginY}
+        onDrag={(e, { point }) => onItemDrag(index, point.y)}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        positionTransition={({ delta }) => {
+          if (isDragging) {
+            dragOriginY.set(dragOriginY.get() + delta.y);
+          }
+          return !isDragging;
+        }}
+        ref={wrapperRef}
+        variants={itemVariants}
+      >
+        <DragHandle onPointerDown={onPointerDown}>
+          <DragIcon icon="drag" />
+        </DragHandle>
+        <StyledCheckbox value={todo.isDone} onChange={onStatusChange} />
+        <Name
+          ref={ref}
+          isDone={todo.isDone}
+          value={todo.name}
+          onChange={onNameChange}
+          onKeyDown={onNameKeyDown}
+        />
+        <CloseButton onClick={() => onRemove(todo.id)}>
+          <CloseIcon icon="cancel_16" />
+        </CloseButton>
+      </Wrapper>
+    );
   }
-
-  function onDragEnd() {
-    setIsDragging(false);
-  }
-
-  function onPointerDown(event) {
-    dragControls.start(event);
-  }
-
-  const itemVariants = {
-    flat: {
-      zIndex: 0,
-      transition: { delay: 2 },
-    },
-    onTop: {
-      zIndex: 1,
-    },
-  };
-
-  return (
-    <Wrapper
-      animate={isDragging ? "onTop" : "flat"}
-      drag="y"
-      dragControls={dragControls}
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={1}
-      dragMomentum={false}
-      dragListener={false}
-      dragOriginY={dragOriginY}
-      onDrag={(e, { point }) => onItemDrag(index, point.y)}
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
-      positionTransition={({ delta }) => {
-        if (isDragging) {
-          dragOriginY.set(dragOriginY.get() + delta.y);
-        }
-        return !isDragging;
-      }}
-      ref={ref}
-      variants={itemVariants}
-    >
-      <DragHandle onPointerDown={onPointerDown}>
-        <DragIcon icon="drag" />
-      </DragHandle>
-      <Checkbox value={todo.isDone} onChange={onStatusChange} />
-      <Name isDone={todo.isDone}>{todo.name}</Name>
-      <CloseButton onClick={() => onRemove(todo.id)}>
-        <CloseIcon icon="cancel_16" />
-      </CloseButton>
-    </Wrapper>
-  );
-};
+);
 
 export default Todo;
-// <NameInput value={todo.name} onChange={onRename} />
