@@ -70,45 +70,6 @@ const Items = styled.div`
 const TodoList = ({ className, dispatch, todosById, todoList }) => {
   const positions = useRef([]).current;
 
-  function onAddButtonClick() {
-    dispatch(addTodo({ todoListId: todoList.id }));
-  }
-
-  function onTodoRemove(id) {
-    dispatch({ type: REMOVE_TODO, payload: { id, todoListId: todoList.id } });
-  }
-
-  function onTodoStatusChange(id, isDone) {
-    dispatch({
-      type: UPDATE_TODO_STATUS,
-      payload: { id, isDone },
-    });
-  }
-
-  function onNameChange(event) {
-    dispatch({
-      type: UPDATE_LIST_NAME,
-      payload: {
-        id: todoList.id,
-        name: event.target.value,
-      },
-    });
-  }
-
-  function onTodoNameChange(id, name) {
-    dispatch({
-      type: UPDATE_TODO_NAME,
-      payload: { id, name },
-    });
-  }
-
-  function onTodoNameKeyDown(event) {
-    if (event.keyCode === ENTER) {
-      event.preventDefault();
-      dispatch(addTodo({ todoListId: todoList.id }));
-    }
-  }
-
   function getRefs(items) {
     return items.reduce((acc, item) => {
       acc[item.id] = createRef();
@@ -185,6 +146,45 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     }
   }
 
+  function onAddButtonClick() {
+    dispatch(addTodo({ todoListId: todoList.id }));
+  }
+
+  function onTodoRemove(id) {
+    dispatch({ type: REMOVE_TODO, payload: { id, todoListId: todoList.id } });
+  }
+
+  function onTodoStatusChange(id, isDone) {
+    dispatch({
+      type: UPDATE_TODO_STATUS,
+      payload: { id, isDone },
+    });
+  }
+
+  function onNameChange(event) {
+    dispatch({
+      type: UPDATE_LIST_NAME,
+      payload: {
+        id: todoList.id,
+        name: event.target.value,
+      },
+    });
+  }
+
+  function onTodoNameChange(id, name) {
+    dispatch({
+      type: UPDATE_TODO_NAME,
+      payload: { id, name },
+    });
+  }
+
+  function onTodoNameKeyDown(event) {
+    if (event.keyCode === ENTER) {
+      event.preventDefault();
+      dispatch(addTodo({ todoListId: todoList.id }));
+    }
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -206,13 +206,13 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
                 ref={refs[id]}
                 key={id}
                 index={i}
-                todo={todosById[id]}
                 onItemDrag={onItemDrag}
                 onRemove={onTodoRemove}
                 onNameChange={(value) => onTodoNameChange(id, value)}
                 onNameKeyDown={onTodoNameKeyDown}
                 onStatusChange={(value) => onTodoStatusChange(id, value)}
                 setPosition={setPosition}
+                todo={todosById[id]}
               />
             ))}
         </Items>
