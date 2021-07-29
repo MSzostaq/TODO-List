@@ -40,7 +40,7 @@ const ListWrapper = styled.div`
   box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.darkPurple};
   overflow-y: hidden;
   position: relative;
-  width: 60%;
+  width: 90%;
 
   @media (min-width: 800px) {
     width: 40%;

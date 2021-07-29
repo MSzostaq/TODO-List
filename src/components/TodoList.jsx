@@ -32,6 +32,12 @@ const Header = styled.div`
   top: 0;
   width: 100%;
   height: 48px;
+
+  @media (orientation: portrait) {
+    body: {
+      flex-direction: row;
+    }
+  }
 `;
 
 const Name = styled.input`
@@ -199,23 +205,27 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
         </AddButton>
       </Header>
       <ItemsWrapper>
-        <Items>
-          {todoList.items.length > 0 &&
-            todoList.items.map((id, i) => (
-              <Todo
-                ref={refs[id]}
-                key={id}
-                index={i}
-                onItemDrag={onItemDrag}
-                onRemove={onTodoRemove}
-                onNameChange={(value) => onTodoNameChange(id, value)}
-                onNameKeyDown={onTodoNameKeyDown}
-                onStatusChange={(value) => onTodoStatusChange(id, value)}
-                setPosition={setPosition}
-                todo={todosById[id]}
-              />
-            ))}
-        </Items>
+        {todoList.items.length === 0 ? (
+          <p>No items yet</p>
+        ) : (
+          <Items>
+            {todoList.items.length > 0 &&
+              todoList.items.map((id, i) => (
+                <Todo
+                  ref={refs[id]}
+                  key={id}
+                  index={i}
+                  onItemDrag={onItemDrag}
+                  onRemove={onTodoRemove}
+                  onNameChange={(value) => onTodoNameChange(id, value)}
+                  onNameKeyDown={onTodoNameKeyDown}
+                  onStatusChange={(value) => onTodoStatusChange(id, value)}
+                  setPosition={setPosition}
+                  todo={todosById[id]}
+                />
+              ))}
+          </Items>
+        )}
       </ItemsWrapper>
     </Wrapper>
   );
