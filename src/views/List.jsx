@@ -36,14 +36,14 @@ const BackIcon = styled(Icon)`
 
 const ListWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 12px;
   box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.darkPurple};
   overflow-y: hidden;
   position: relative;
-  width: 90%;
+  width: 100%;
 
-  @media (min-width: 800px) {
-    width: 40%;
+  @media (min-width: 700px) {
+    border-radius: 12px;
+    width: 60%;
   }
 
   @media (min-width: 1250px) {
