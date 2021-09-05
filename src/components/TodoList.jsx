@@ -78,7 +78,7 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
 
   function getRefs(items) {
     return items.reduce((acc, item) => {
-      acc[item.id] = createRef();
+      acc[item] = createRef();
       return acc;
     }, {});
   }
@@ -86,12 +86,18 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
 
   useEffect(() => {
     setRefs(getRefs(todoList.items));
+  }, [todoList.items]);
+
+  useEffect(() => {
+    if (!todoList.items.length) {
+      return;
+    }
     const lastItem = todoList.items[todoList.items.length - 1];
-    const itemToFocus = refs[lastItem.id].current;
+    const itemToFocus = refs[lastItem].current;
     if (itemToFocus) {
       itemToFocus.focus();
     }
-  }, [todoList.items]);
+  }, [refs]);
 
   function getTargetIndex(index, yOffset) {
     let target = index;
@@ -184,6 +190,13 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     });
   }
 
+  function onNameKeyDown(event) {
+    if (!todoList.items.length && event.keyCode === ENTER) {
+      event.preventDefault();
+      dispatch(addTodo({ todoListId: todoList.id }));
+    }
+  }
+
   function onTodoNameKeyDown(event) {
     if (event.keyCode === ENTER) {
       event.preventDefault();
@@ -195,9 +208,11 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     <Wrapper>
       <Header>
         <Name
+          autoFocus={!todoList.items.length}
           type="text"
           value={todoList.name}
           onChange={onNameChange}
+          onKeyDown={onNameKeyDown}
           placeholder="Name"
         />
         <AddButton onClick={onAddButtonClick}>
@@ -206,7 +221,8 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
       </Header>
       <ItemsWrapper>
         {todoList.items.length === 0 ? (
-          <p>No items yet</p>
+          //styles
+          <p>No items yet.</p>
         ) : (
           <Items>
             {todoList.items.length > 0 &&
