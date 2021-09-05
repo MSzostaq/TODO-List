@@ -69,6 +69,12 @@ const ItemsWrapper = styled.div`
   height: auto;
 `;
 
+const NoItems = styled.p`
+  color: ${({ theme }) => theme.colors.icons};
+  font-size: ${({ theme }) => theme.fontSize.m};
+  padding: 8px 12px;
+`;
+
 const Items = styled.div`
   padding: 8px;
 `;
@@ -221,8 +227,7 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
       </Header>
       <ItemsWrapper>
         {todoList.items.length === 0 ? (
-          //styles
-          <p>No items yet.</p>
+          <NoItems>No items yet.</NoItems>
         ) : (
           <Items>
             {todoList.items.length > 0 &&
