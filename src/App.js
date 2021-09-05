@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import { theme } from "constants/theme";
 import GlobalProvider from "components/GlobalProvider";
 import ModalsProvider from "components/ModalsProvider";
 import Modals from "components/Modals";
@@ -19,13 +20,15 @@ const StyledApp = styled.div`
 function App() {
   return (
     <StyledApp>
-      <GlobalProvider>
-        <ModalsProvider>
-          <Routes />
-          <Modals />
-          <AppNotifications />
-        </ModalsProvider>
-      </GlobalProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalProvider>
+          <ModalsProvider>
+            <Routes />
+            <Modals />
+            <AppNotifications />
+          </ModalsProvider>
+        </GlobalProvider>
+      </ThemeProvider>
     </StyledApp>
   );
 }
