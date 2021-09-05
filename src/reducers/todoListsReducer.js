@@ -1,5 +1,6 @@
 import { ADD_TODO, REMOVE_TODO } from "actions/todosActions";
 import {
+  ADD_LIST_OK,
   UPDATE_LIST_ITEMS_ORDER,
   UPDATE_LIST_NAME,
 } from "actions/todoListsActions";
@@ -11,6 +12,9 @@ const initialState = {
 
 export default function todoListsReducer(state = initialState, action) {
   switch (action.type) {
+    case ADD_LIST_OK: {
+      return { ...state, [action.payload.id]: action.payload };
+    }
     case ADD_TODO: {
       const { id, todoListId } = action.payload;
       const currentList = state[todoListId];
