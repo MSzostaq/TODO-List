@@ -1,44 +1,28 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { getTodoListById } from "selectors";
-import Icon from "components/Icon";
+import { ESC } from "constants/keys";
 import TodoList from "components/TodoList";
 
 const View = styled.div`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  height: 100%;
-`;
-
-const BackButton = styled(NavLink)`
-  border-radius: 8px;
-  box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.colors.darkPurple};
-  cursor: pointer;
-  display: flex;
-  font-size: ${({ theme }) => theme.fontSize.l};
-  padding: 4px;
   position: absolute;
-  top: 16px;
-  left: 16px;
-`;
-
-const BackIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.icons};
-  transform: rotate(90deg);
-  width: 24px;
-  height: 24px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const ListWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.darkPurple};
+  box-shadow: 0px 0px 8px 0px ${({ theme }) => theme.colors.darkGrey};
   overflow-y: hidden;
-  position: relative;
+  position: absolute;
   width: 100%;
 
   @media (min-width: 700px) {
@@ -52,12 +36,33 @@ const ListWrapper = styled.div`
 `;
 
 const List = ({ todoList }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
+  function onOverlayClick() {
+    history.push("/");
+  }
+
+  function onKeyDown(event) {
+    if (event.keyCode === ESC) {
+      event.preventDefault();
+      history.push("/");
+    }
+  }
+
+  function onListClick(event) {
+    event.stopPropagation();
+  }
+
   return (
-    <View>
-      <BackButton to="/">
-        <BackIcon icon="caretDown" />
-      </BackButton>
-      <ListWrapper>
+    <View onClick={onOverlayClick}>
+      <ListWrapper onClick={onListClick}>
         <TodoList todoList={todoList} />
       </ListWrapper>
     </View>
