@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import styled from "styled-components";
 import Lists from "views/Lists";
-import List from "views/List";
 
 const Wrapper = styled.div`
   position: relative;
@@ -23,16 +17,10 @@ const Main = () => {
     <Router>
       <Wrapper>
         <View>
-          <Switch>
-            <Route
-              path="/list/:id"
-              render={(routeProps) => <List {...routeProps} />}
-            />
-            <Route path="/">
-              <Lists />
-            </Route>
-            <Redirect to="/" />
-          </Switch>
+          <Route path="/">
+            <Lists />
+          </Route>
+          <Redirect to="/" />
         </View>
       </Wrapper>
     </Router>

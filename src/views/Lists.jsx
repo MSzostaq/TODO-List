@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { addList } from "actions/todoListsActions";
 import { getTodoLists } from "selectors";
+import List from "views/List";
 
 const View = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -63,8 +64,15 @@ const ListCard = styled(NavLink)`
 `;
 
 const Lists = ({ dispatch, lists }) => {
+  const history = useHistory();
   function onNewListButtonClick() {
-    dispatch(addList());
+    dispatch(
+      addList({
+        onSuccess: (list) => {
+          history.push(`/list/${list.id}`);
+        },
+      })
+    );
   }
 
   return (
@@ -80,6 +88,10 @@ const Lists = ({ dispatch, lists }) => {
           </ListCard>
         ))}
       </Cards>
+      <Route
+        path="/list/:id"
+        render={(routeProps) => <List {...routeProps} />}
+      />
     </View>
   );
 };
