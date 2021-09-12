@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { getTodoListById } from "selectors";
 import { ESC } from "constants/keys";
@@ -59,7 +59,9 @@ const List = ({ todoList }) => {
   function onListClick(event) {
     event.stopPropagation();
   }
-
+  if (!todoList) {
+    return <Redirect to="/" />;
+  }
   return (
     <View onClick={onOverlayClick}>
       <ListWrapper onClick={onListClick}>
