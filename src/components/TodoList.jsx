@@ -12,7 +12,7 @@ import {
   UPDATE_LIST_ITEMS_ORDER,
   UPDATE_LIST_NAME,
 } from "actions/todoListsActions";
-import { ENTER } from "constants/keys";
+import { BACKSPACE, ENTER } from "constants/keys";
 import { getTodosById } from "selectors";
 import Icon from "components/Icon";
 import Todo from "components/Todo";
@@ -203,10 +203,18 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     }
   }
 
-  function onTodoNameKeyDown(event) {
+  function onTodoNameKeyDown(event, todo) {
     if (event.keyCode === ENTER) {
       event.preventDefault();
       dispatch(addTodo({ todoListId: todoList.id }));
+    } else if (event.keyCode === BACKSPACE) {
+      if (!todo.name.length) {
+        event.preventDefault();
+        dispatch({
+          type: REMOVE_TODO,
+          payload: { id: todo.id, todoListId: todo.todoListId },
+        });
+      }
     }
   }
 
