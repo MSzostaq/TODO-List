@@ -1,9 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 
 export const ADD_LIST = "ADD_LIST";
-export const addList = ({ id = uuidv4(), name = "", items = [] } = {}) => ({
+export const addList = ({
+  id = uuidv4(),
+  name = "",
+  items = [],
+  onSuccess,
+} = {}) => ({
   type: ADD_LIST,
   payload: { id, name, items },
+  meta: { onSuccess },
 });
 export const ADD_LIST_OK = "ADD_LIST_OK";
 export const ADD_LIST_ERROR = "ADD_LIST_ERROR";

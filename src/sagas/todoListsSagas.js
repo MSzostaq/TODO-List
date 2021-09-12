@@ -1,4 +1,4 @@
-import { put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { addNotification } from "actions/notificationsActions";
 import {
   ADD_LIST,
@@ -12,6 +12,9 @@ function* onAddTodoList(action) {
     const res = { data: action.payload };
     yield put({ type: ADD_LIST_OK, payload: res.data });
     // put = dispatch
+    if (action.meta.onSuccess) {
+      yield call(action.meta.onSuccess, res.data);
+    }
     yield put(
       addNotification({ title: "List created", message: `Id: ${res.data.id}` })
     );
