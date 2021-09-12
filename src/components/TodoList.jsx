@@ -9,6 +9,7 @@ import {
   UPDATE_TODO_STATUS,
 } from "actions/todosActions";
 import {
+  REMOVE_LIST,
   UPDATE_LIST_ITEMS_ORDER,
   UPDATE_LIST_NAME,
 } from "actions/todoListsActions";
@@ -58,6 +59,20 @@ const AddButton = styled.button`
 `;
 
 const AddIcon = styled(Icon)`
+  color: ${({ theme }) => theme.colors.icons};
+  width: 24px;
+  height: 24px;
+`;
+
+const RemoveButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  heigth: 32px;
+`;
+
+const RemoveIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.icons};
   width: 24px;
   height: 24px;
@@ -168,6 +183,10 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
     dispatch(addTodo({ todoListId: todoList.id }));
   }
 
+  function onRemoveListButtonClick() {
+    dispatch({ type: REMOVE_LIST, payload: { id: todoList.id } });
+  }
+
   function onTodoRemove(id) {
     dispatch({ type: REMOVE_TODO, payload: { id, todoListId: todoList.id } });
   }
@@ -232,6 +251,9 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
         <AddButton onClick={onAddButtonClick}>
           <AddIcon icon="add" />
         </AddButton>
+        <RemoveButton onClick={onRemoveListButtonClick}>
+          <RemoveIcon icon="cancel" />
+        </RemoveButton>
       </Header>
       <ItemsWrapper>
         {todoList.items.length === 0 ? (
