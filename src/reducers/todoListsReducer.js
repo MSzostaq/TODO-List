@@ -1,6 +1,8 @@
+import omit from "lodash/omit";
 import { ADD_TODO, REMOVE_TODO } from "actions/todosActions";
 import {
   ADD_LIST_OK,
+  REMOVE_LIST,
   UPDATE_LIST_ITEMS_ORDER,
   UPDATE_LIST_NAME,
 } from "actions/todoListsActions";
@@ -14,6 +16,9 @@ export default function todoListsReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_LIST_OK: {
       return { ...state, [action.payload.id]: action.payload };
+    }
+    case REMOVE_LIST: {
+      return omit(state, action.payload.id);
     }
     case ADD_TODO: {
       const { id, todoListId } = action.payload;
