@@ -87,7 +87,7 @@ const ItemsWrapper = styled.div`
 const NoItems = styled.p`
   color: ${({ theme }) => theme.colors.icons};
   font-size: ${({ theme }) => theme.fontSize.m};
-  padding: 8px 12px;
+  padding: 12px;
 `;
 
 const Items = styled.div`
@@ -252,7 +252,7 @@ const TodoList = ({ className, dispatch, todosById, todoList }) => {
           <AddIcon icon="add" />
         </AddButton>
         <RemoveButton onClick={onRemoveListButtonClick}>
-          <RemoveIcon icon="cancel" />
+          <RemoveIcon icon="trash16" />
         </RemoveButton>
       </Header>
       <ItemsWrapper>
