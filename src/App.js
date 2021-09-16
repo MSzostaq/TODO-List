@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "constants/theme";
 import GlobalProvider from "components/GlobalProvider";
@@ -17,7 +17,11 @@ const StyledApp = styled.div`
   height: 100%;
 `;
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    document.title = " TODO-List";
+  }, []);
+
   return (
     <StyledApp>
       <ThemeProvider theme={theme}>
@@ -31,6 +35,6 @@ function App() {
       </ThemeProvider>
     </StyledApp>
   );
-}
+};
 
 export default App;
