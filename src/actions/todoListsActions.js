@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 export const ADD_LIST = "ADD_LIST";
 export const addList = ({
   id = uuidv4(),
-  name = "",
+  name = "Name",
   items = [],
   onSuccess,
 } = {}) => ({
