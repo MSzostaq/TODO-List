@@ -5,16 +5,17 @@ describe("todo lists actions", () => {
     it("should create an action with new list", () => {
       const list = {
         id: "1",
-        name: "List 1",
+        name: "Name",
         items: [2],
       };
       const expectedAction = {
         type: ADD_LIST,
         payload: {
           id: "1",
-          name: "List 1",
+          name: "Name",
           items: [2],
         },
+        meta: {},
       };
       expect(addList(list)).toEqual(expectedAction);
     });
@@ -23,7 +24,7 @@ describe("todo lists actions", () => {
       const list = {};
       const { payload } = addList(list);
       expect(typeof payload.id).toBe("string");
-      expect(payload.name).toBe("");
+      expect(payload.name).toBe("Name");
       expect(payload.items).toEqual([]);
     });
   });
