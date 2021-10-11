@@ -5,14 +5,14 @@ describe("todo lists actions", () => {
     it("should create an action with new list", () => {
       const list = {
         id: "1",
-        name: "Name",
+        name: "List",
         items: [2],
       };
       const expectedAction = {
         type: ADD_LIST,
         payload: {
           id: "1",
-          name: "Name",
+          name: "List",
           items: [2],
         },
         meta: {},
