@@ -24,7 +24,7 @@ describe("todo lists actions", () => {
       const list = {};
       const { payload } = addList(list);
       expect(typeof payload.id).toBe("string");
-      expect(payload.name).toBe("Name");
+      expect(payload.name).toBe("List");
       expect(payload.items).toEqual([]);
     });
   });
