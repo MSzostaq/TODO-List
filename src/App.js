@@ -18,10 +18,6 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-  useEffect(() => {
-    document.title = " TODO-List";
-  }, []);
-
   return (
     <StyledApp>
       <ThemeProvider theme={theme}>
