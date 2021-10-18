@@ -65,6 +65,7 @@ const ListCard = styled(NavLink)`
 
 const Lists = ({ dispatch, lists }) => {
   const history = useHistory();
+
   function onNewListButtonClick() {
     dispatch(
       addList({
