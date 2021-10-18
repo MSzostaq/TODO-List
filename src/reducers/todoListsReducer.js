@@ -51,5 +51,3 @@ export default function todoListsReducer(state = initialState, action) {
       return state;
   }
 }
-
-// TODO: state map all lists and remove id if needed
