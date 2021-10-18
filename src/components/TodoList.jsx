@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import clamp from "lodash/clamp";
+import { connect } from "react-redux";
 import {
   addTodo,
   REMOVE_TODO,
